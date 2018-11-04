@@ -1,0 +1,11 @@
+<ng-container *ngIf="photo">
+  <img class="img"
+       src="https://farm{{photo.farm}}.staticflickr.com/{{photo.server}}/{{photo.id}}_{{photo.secret}}_{{photoSize}}.jpg"
+       alt="">
+  <div class="author" (click)="onAuthorClicked()">
+    {{photo.ownername}}
+  </div>
+  <div class="date">
+    {{photo.datetaken | date: 'mediumDate'}}
+  </div>
+</ng-container>
