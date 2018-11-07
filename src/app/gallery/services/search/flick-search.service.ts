@@ -5,12 +5,11 @@ import { map, mergeMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { PhotoRequest } from '../../shared/models/photo-request';
 import { Photo } from '../../shared/models/photo';
-import { Author } from '../../shared/models/author';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SearchService {
+export class FlickrSearchService {
 
   private loadedPhotos: Photo[];
   private previousUsedUrl: string;
@@ -91,17 +90,5 @@ export class SearchService {
       .pipe(
         map(photoReq => photoReq.photos.photo),
       );
-  }
-
-  getAuthorInfo(authorId: string): Observable<Author> {
-    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search` +
-      `&api_key=${environment.apiKey}` +
-      `&format=json&nojsoncallback=1` +
-      `&user_id=${authorId}`
-
-    return this.http.get<{person: Author}>(url)
-      .pipe(
-        map((req) => req.person)
-      )
   }
 }
