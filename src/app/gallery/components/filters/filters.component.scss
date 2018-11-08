@@ -1,0 +1,116 @@
+$colors: (
+  red: #ff2000,
+  darkOrange: #a24615,
+  orange: #ff7c00,
+  palePink: #ff9f9c,
+  lemmonYellow: #fffa00,
+  schoolBusYellow: #ffcf00,
+  green: #90e200,
+  darkGreen: #00ab00,
+  cyan: #00b2d4,
+  blue: #0062c6,
+  violet: #8c20ba,
+  pink: #f52394,
+  white: #ffffff,
+  grey: #7c7c7c,
+  black: #000000
+);
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.form-group--color {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.color-checkbox {
+  display: inline-block;
+  width: 12.2%;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="checkbox"] {
+    & + label {
+      display: flex;
+      margin: 8px 5px;
+      justify-content: center;
+      align-items: center;
+      color: #DDDDDD;
+      border-radius: 3px;
+      background-color: inherit;
+      content: '';
+      font-size: 15px;
+      height: 20px;
+      width: 20px;
+    }
+
+    &:checked {
+      + label {
+        &::before {
+          content: '\2714';
+        }
+      }
+    }
+  }
+
+  @each $color, $colorValue in $colors {
+    &.color-checkbox--#{$color} {
+      input[type="checkbox"] {
+        & + label {
+          background-color: #{$colorValue};
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 470px) {
+  .form-group--color {
+  }
+}
+
+@media screen and (min-width: 650px) {
+  :host {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 10px 0;
+  }
+
+  .form-group {
+    margin-bottom: 0;
+    &--color {
+      width: 100%;
+      flex-wrap: nowrap;
+      margin-top: 0;
+      justify-content: center;
+    }
+  }
+
+  .color-checkbox {
+    width: auto;
+  }
+
+}
+
+@media screen and (min-width: 1120px) {
+  .form-group {
+    &--color {
+      width: auto;
+      margin-top: 0;
+    }
+  }
+
+  .color-checkbox {
+    width: auto;
+  }
+}

@@ -1,5 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Photo } from '../shared/models/photo';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
+
+import { Photo } from '../../shared/models/photo';
 
 @Component({
   selector: 'app-photos',
@@ -23,7 +31,6 @@ export class PhotosComponent implements OnInit {
   }
 
   onPhotoClicked(photo: Photo) {
-    console.log(photo);
     this.photoClicked.emit(photo);
   }
 

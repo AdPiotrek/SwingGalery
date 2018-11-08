@@ -5,5 +5,6 @@ export interface PhotoRequest {
     photo: Photo[];
     perpage: number;
     page: number;
+    pages: number;
   };
 }

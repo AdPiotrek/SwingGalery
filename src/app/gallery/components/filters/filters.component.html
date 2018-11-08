@@ -1,0 +1,91 @@
+<form [formGroup]="colorForm" class="form-group form-group--color">
+  <div class="color-checkbox color-checkbox--red">
+    <input type="checkbox" formControlName="0" id="red-color-check"/>
+    <label for="red-color-check" data-color="#ff2000"></label>
+  </div>
+  <div class="color-checkbox color-checkbox--darkOrange">
+    <input type="checkbox" formControlName="1" id="dark-orange-check"/>
+    <label for="dark-orange-check" data-color="#a24615"></label>
+  </div>
+  <div class="color-checkbox color-checkbox--orange">
+    <input type="checkbox" formControlName="2" id="orange-color-check"/>
+    <label for="orange-color-check" data-color="#ff7c00"></label>
+  </div>
+  <div class="color-checkbox color-checkbox--palePink">
+    <input type="checkbox" formControlName="3" id="palePink-color-check"/>
+    <label for="palePink-color-check" data-color="#ff9f9c"></label>
+  </div>
+  <div class="color-checkbox color-checkbox--lemmonYellow">
+    <input type="checkbox" formControlName="4" id="lemmonYellow-color-check"/>
+    <label for="lemmonYellow-color-check" data-color="#fffa00"></label>
+  </div>
+  <div class="color-checkbox color-checkbox--schoolBusYellow">
+    <input type="checkbox" formControlName="5" id="schoolBusYellow-color-check"/>
+    <label for="schoolBusYellow-color-check" data-color="#ffcf00"></label>
+  </div>
+  <div class="color-checkbox color-checkbox--green">
+    <input type="checkbox" formControlName="6" id="green-color-check"/>
+    <label for="green-color-check" data-color="#90e200"></label>
+  </div>
+  <div class="color-checkbox color-checkbox--darkGreen">
+    <input type="checkbox" formControlName="7" id="darkGreen-color-check"/>
+    <label for="darkGreen-color-check" data-color="#00ab00"></label>
+  </div>
+  <div class="color-checkbox color-checkbox--cyan">
+    <input type="checkbox" formControlName="8" id="cyan-color-check"/>
+    <label for="cyan-color-check" data-color="#00b2d4"></label>
+  </div>
+  <div class="color-checkbox color-checkbox--blue">
+    <input type="checkbox" formControlName="9" id="blue-color-check"/>
+    <label for="blue-color-check" data-color="#0062c6"></label>
+  </div>
+  <div class="color-checkbox color-checkbox--violet">
+    <input type="checkbox" formControlName="a" id="violet-color-check"/>
+    <label for="violet-color-check" data-color="#8c20ba"></label>
+  </div>
+  <div class="color-checkbox color-checkbox--pink">
+    <input type="checkbox" formControlName="b" id="pink-color-check"/>
+    <label for="pink-color-check" data-color="#f52394"></label>
+  </div>
+  <div class="color-checkbox color-checkbox--white">
+    <input type="checkbox" formControlName="c" id="white-color-check"/>
+    <label for="white-color-check" data-color="#ffffff"></label>
+  </div>
+  <div class="color-checkbox color-checkbox--grey">
+    <input type="checkbox" formControlName="d" id="grey-color-check"/>
+    <label for="grey-color-check" data-color="#7c7c7c"></label>
+  </div>
+  <div class="color-checkbox color-checkbox--black">
+    <input type="checkbox" formControlName="e" id="black-color-check"/>
+    <label for="black-color-check" data-color="#000000"></label>
+  </div>
+</form>
+
+<form [formGroup]="licenseForm" class="form-group--license">
+  <div class="form-group">
+    <select formControlName="license" class="form-control">
+      <option value="">Any license</option>
+      <option value="0">All Rights Reserved</option>
+      <option value="1">Attribution-NonCommercial-ShareAlike</option>
+      <option value="2">Attribution-NonCommercial</option>
+      <option value="3">Attribution-NonCommercial-NoDerivs</option>
+      <option value="4">Attribution License</option>
+      <option value="5">Attribution-ShareAlike License</option>
+      <option value="6">Attribution-NoDerivs License</option>
+      <option value="7">No known copyright restrictions</option>
+      <option value="8">United States Government Work</option>
+      <option value="9">Public Domain Dedication (CC0)</option>
+      <option value="10">Public Domain Mark</option>
+    </select>
+  </div>
+</form>
+
+<form class="form-group form-group--search" [formGroup]="searchForm">
+  <div class="input-group">
+    <input class="form-control" type="text" placeholder="Search" formControlName="search"/>
+  </div>
+</form>
+
+<button class="btn btn-default" (click)="filter()">Filter</button>
+
+
