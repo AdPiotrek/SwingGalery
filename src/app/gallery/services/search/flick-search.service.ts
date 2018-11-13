@@ -47,6 +47,7 @@ export class FlickSearchService {
       .pipe(
         tap(photoReq => this.loadedPhotos = [...photoReq.photos.photo]),
       );
+
   }
 
   getMorePhotos(page: number): Observable<PhotoRequest> {

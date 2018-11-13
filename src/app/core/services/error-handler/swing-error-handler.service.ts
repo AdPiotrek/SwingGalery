@@ -1,52 +1,48 @@
-import { ErrorHandler, Inject, Injector, OnDestroy } from '@angular/core';
+import { ErrorHandler, Inject, Injector } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { empty, of, interval, Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-
-import { ErrorLog } from './error-log';
 import { environment } from '../../../../environments/environment';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { ErrorLog } from './error-log';
 
-export class SwingErrorHandlerService implements ErrorHandler, OnDestroy {
+export class SwingErrorHandlerService implements ErrorHandler {
   private http: HttpClient;
-  private stackTrace: ErrorLog[] = [];
-  private loggerSubscription: Subscription;
 
   constructor(@Inject(Injector) private injector: Injector) {
     this.http = injector.get(HttpClient);
-    this.sendLogs();
   }
 
   handleError(error: Error | HttpErrorResponse): void {
     if (!environment.production) {
       console.error(error);
     }
-    this.stackTrace.push({
-      date: new Date(),
-      error: error.message
-    });
-  }
 
-  sendLogs() {
-    this.loggerSubscription = interval(60000)
-      .pipe(
-        switchMap(() => {
-          console.log('stackTrace', this.stackTrace);
-          if (this.stackTrace.length > 0) {
-            // return this.http.post('Some example url to send logs to server', this.stackTrace);
-            return of('Saved to file');
-          }
-          return empty();
-        })
-      )
-      .subscribe(
-        () => {
-          this.stackTrace = [];
-        });
-  }
+    let parsedError: ErrorLog;
+    // Of course we can put here as many information as we want, like browser, system etc.
+    if (error instanceof HttpErrorResponse) {
+      parsedError = {
+        name: error.name || null,
+        appId: 'SwingGallery',
+        time: new Date().getTime(),
+        location: this.injector.get(LocationStrategy),
+        url: location instanceof PathLocationStrategy ? location.path() : '',
+        status: error.status || null,
+        message: error.message || error.toString() || '',
+        serverMessage: error.error.message || error.message || error || 'No server error'
+      };
+    } else {
+      parsedError = {
+        message: error.stack,
+        appId: 'SwingGallery',
+        time: new Date().getTime(),
+        location: this.injector.get(LocationStrategy),
+      };
+    }
+    // request is not send not to throw error
 
-  ngOnDestroy() {
-    this.loggerSubscription.unsubscribe();
+    this.http.post('example server url', parsedError);
+    // .subscribe()
+
   }
 
 

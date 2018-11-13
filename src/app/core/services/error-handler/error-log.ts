@@ -1,4 +1,10 @@
 export interface ErrorLog {
-  date: Date;
-  error: string;
+  name?: string;
+  appId?: string;
+  time?: number;
+  location?: any;
+  url?: any;
+  status?: any;
+  message?: string;
+  serverMessage?: string;
 }

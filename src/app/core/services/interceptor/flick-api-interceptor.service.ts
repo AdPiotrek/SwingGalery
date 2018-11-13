@@ -4,8 +4,8 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 
 import { ToastrService } from 'ngx-toastr';
 
-import { mergeMap } from 'rxjs/operators';
-import { empty, of } from 'rxjs';
+import { catchError, mergeMap } from 'rxjs/operators';
+import { empty, of, throwError } from 'rxjs';
 
 export class FlickApiInterceptorService implements HttpInterceptor {
   toastrService: ToastrService;
@@ -23,6 +23,10 @@ export class FlickApiInterceptorService implements HttpInterceptor {
             return empty();
           }
           return of(request);
+        }),
+        catchError(err => {
+          this.toastrService.error(err.error.message || err.error || 'Unexpected error occurred, try again later.');
+          return throwError(err);
         })
       );
   }

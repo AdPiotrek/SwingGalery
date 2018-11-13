@@ -36,6 +36,7 @@ export class DogsPhotosComponent implements OnInit {
 
   constructor(private searchService: FlickSearchService,
               private router: Router) {
+
   }
 
   ngOnInit() {
