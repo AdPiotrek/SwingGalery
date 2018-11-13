@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FlickSearchService } from '../../services/search/flick-search.service';
 
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { finalize, map, tap } from 'rxjs/operators';
 
 import { Photo } from '../../shared/models/photo';
 import { DogsFilterValues } from '../../shared/models/dogs-filter-values';
@@ -56,11 +56,11 @@ export class DogsPhotosComponent implements OnInit {
     this.searchService.getPhotos(url)
       .pipe(
         tap((photosReq) => {
-          this.isLoading = false;
           this.currentPage = photosReq.photos.page;
           this.allPages = photosReq.photos.pages;
         }),
-        map((photosReq) => photosReq.photos.photo)
+        map((photosReq) => photosReq.photos.photo),
+        finalize(() => this.isLoading = false)
       ).subscribe((photos) => {
       this.photos = photos;
     });
@@ -75,11 +75,11 @@ export class DogsPhotosComponent implements OnInit {
     this.searchService.getMorePhotos(++this.currentPage)
       .pipe(
         tap((photosReq) => {
-          this.isLoading = false;
           this.currentPage = photosReq.photos.page;
           this.allPages = photosReq.photos.pages;
         }),
-        map((photosReq) => photosReq.photos.photo)
+        map((photosReq) => photosReq.photos.photo),
+        finalize(() => this.isLoading = false)
       ).subscribe((photos) => {
       this.photos = photos;
     });

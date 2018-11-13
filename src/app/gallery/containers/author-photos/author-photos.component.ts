@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { FlickSearchService } from '../../services/search/flick-search.service';
 
-import { map, switchMap, tap } from 'rxjs/operators';
+import { finalize, map, switchMap, tap } from 'rxjs/operators';
 
 import { Photo } from '../../shared/models/photo';
 
@@ -32,11 +32,11 @@ export class AuthorPhotosComponent implements OnInit {
       .pipe(
         switchMap((params) => this.searchService.getAuthorPhotos(params['id'])),
         tap((photosReq) => {
-          this.isLoading = false;
           this.currentPage = photosReq.photos.page;
           this.allPages = photosReq.photos.pages;
         }),
-        map((photosReq) => photosReq.photos.photo)
+        map((photosReq) => photosReq.photos.photo),
+        finalize(() => this.isLoading = false)
       ).subscribe((photos) => {
       this.photos = photos;
     });
@@ -54,7 +54,8 @@ export class AuthorPhotosComponent implements OnInit {
           this.currentPage = photosReq.photos.page;
           this.allPages = photosReq.photos.pages;
         }),
-        map((photosReq) => photosReq.photos.photo)
+        map((photosReq) => photosReq.photos.photo),
+        finalize(() => this.isLoading = false)
       ).subscribe((photos) => {
       this.photos = photos;
     });
